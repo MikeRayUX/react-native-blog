@@ -2,11 +2,11 @@ import React, { useContext, useState } from 'react';
 import { View, Text, TextInput, StyleSheet, Button } from 'react-native';
 import { Context } from '../context/BlogContext';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { withOrientation } from 'react-navigation';
 
 const CreateScreen = ({ navigation }) => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const { addBlogPost } = useContext(Context);
 
   return (
     <View style={styles.container}>
@@ -29,6 +29,11 @@ const CreateScreen = ({ navigation }) => {
       </View>
       <TouchableOpacity
         style={styles.createButton}
+        onPress={() => {
+          addBlogPost(title, content, () => {
+            navigation.navigate('Index')
+          });
+        }}
       >
         <Text
           style={styles.createButtonText}>
